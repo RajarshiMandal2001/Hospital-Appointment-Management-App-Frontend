@@ -10,7 +10,7 @@ const DoctorAppointmentCard = ({appointment, onDelete}) => {
     const handleCancelAppointment = async () => {
     try {
         setIsLoading(true);
-        await makeRequest(`http://localhost:8000/api/appointments/delete/${appointment.id}/`, 'DELETE', null, userInfo.access);
+        await makeRequest(`/api/appointments/delete/${appointment.id}/`, 'DELETE', null, userInfo.access);
         onDelete(appointment.id) 
     } catch (error) {
         console.error("Error deleting appointment:", error);

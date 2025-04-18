@@ -1,6 +1,4 @@
-import axios from "axios";
-import { jwtDecode } from "jwt-decode";
-
+import { makeRequest } from "./makeRequest";
 
 // get logged in user info
 export const getAuthTokenWithExpiry = (key='token') => {
@@ -43,17 +41,9 @@ export const handleLogout = async () => {
   const item = JSON.parse(tokenInfo);
 
   try {
-    const response = await axios.post(
-      'http://localhost:8000/api/logout/', 
-      { refresh: item.refresh }, 
-      {
-        headers: {
-          Authorization: `Bearer ${item.access}`,
-        },
-      }
-    );
+    const response = await makeRequest('/api/logout/', 'POST', { refresh: item.refresh }, item.access);
 
-    if (response.status === 205) {
+    if (response) {
       localStorage.removeItem('token');    
       return true;  
     }

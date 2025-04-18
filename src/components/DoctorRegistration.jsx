@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { makeRequest } from "../services/makeRequest";
 
@@ -31,7 +30,7 @@ const DoctorRegistration = () => {
 
     try {
       setIsLoading(true)
-      const response = await makeRequest("http://localhost:8000/api/doctors/register/",'POST', formData);
+      const response = await makeRequest("/api/doctors/register/",'POST', formData);
       setMessage("Doctor registered successfully!");
       navigate("/");
     } catch (error) {

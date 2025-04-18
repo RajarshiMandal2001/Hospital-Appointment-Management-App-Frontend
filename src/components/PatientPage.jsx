@@ -16,7 +16,7 @@ function PatientPage() {
   const fetchAllDoctors = async () => {
     setIsLoading(true)
     try {
-      const data = await makeRequest("http://localhost:8000/api/doctors/", 'GET', null, userInfo.access, { name: search }) 
+      const data = await makeRequest("/api/doctors/", 'GET', null, userInfo.access, { name: search }) 
       setDoctors(data);
     } catch (error) {
       console.error("Error fetching patient data:", error);
@@ -28,7 +28,7 @@ function PatientPage() {
   const fetchAllAppointments = async () => {
     setIsLoading(true)
     try {
-      const data = await makeRequest(`http://localhost:8000/api/appointments/${userInfo.userId}`, 'GET', null, userInfo.access) 
+      const data = await makeRequest(`/api/appointments/${userInfo.userId}`, 'GET', null, userInfo.access) 
       setAppointments(data)
     } catch (error) {
       console.error("Error fetching patient data:", error);
@@ -43,7 +43,7 @@ function PatientPage() {
     }    
     setIsLoading(true)
     try {
-      const data = await makeRequest(`http://localhost:8000/api/appointments/update/${id}/`, 'PATCH', payload, userInfo.access) 
+      const data = await makeRequest(`/api/appointments/update/${id}/`, 'PATCH', payload, userInfo.access) 
     } catch (error) {
       console.error("Error updating appointment:", error);
     } finally {

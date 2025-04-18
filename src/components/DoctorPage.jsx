@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { getAuthTokenWithExpiry } from "../services/authToken";
-import PatientAppointmentCard from "./PatientAppointmentCard";
 import { makeRequest } from "../services/makeRequest";
 import { DoctorNavbar } from "./DoctorNavbar";
 import DoctorAppointmentCard from "./DoctorAppointmentCard";
@@ -13,7 +12,7 @@ function DoctorPage() {
   const fetchAllAppointments = async () => {
     setIsLoading(true)
     try {
-      const data = await makeRequest(`http://localhost:8000/api/appointments/doctor/${userInfo.userId}/`, 'GET', null, userInfo.access) 
+      const data = await makeRequest(`/api/appointments/doctor/${userInfo.userId}/`, 'GET', null, userInfo.access) 
       setAppointments(data)
     } catch (error) {
       console.error("Error fetching patient data:", error);

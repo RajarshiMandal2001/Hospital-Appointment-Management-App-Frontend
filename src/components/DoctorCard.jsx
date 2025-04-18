@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useState } from 'react';
 import { getAuthTokenWithExpiry } from '../services/authToken';
 import { makeRequest } from '../services/makeRequest';
@@ -9,28 +8,6 @@ const DoctorCard = ({ doctor, onTabChange }) => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [showDatePicker, setShowDatePicker] = useState(false);
-
-
-  const handleBooking = async () => {
-    const payload = {
-        doctor: doctor.id,
-        patient: userInfo.userId,
-        date_appointment: new Date(),
-        appointment_time: new Date(),
-        reason: ""
-        // date_appointment: "2025-04-20T10:00:00Z"
-    }
-
-    try {
-      setIsLoading(true);
-      await makeRequest("http://localhost:8000/api/appointments/", 'POST', payload, userInfo.access) 
-      onTabChange('appointments')
-    } catch (error) {
-        console.error("Error fetching patient data:", error);
-    } finally {
-      setIsLoading(false)
-    }
-  };
 
   const handleDateConfirm = async (date) => {
     const payload = {
@@ -43,7 +20,7 @@ const DoctorCard = ({ doctor, onTabChange }) => {
 
     try {
       setIsLoading(true);
-      await makeRequest("http://localhost:8000/api/appointments/", 'POST', payload, userInfo.access);
+      await makeRequest("/api/appointments/", 'POST', payload, userInfo.access);
       onTabChange('appointments');
     } catch (error) {
       console.error("Error booking appointment:", error);

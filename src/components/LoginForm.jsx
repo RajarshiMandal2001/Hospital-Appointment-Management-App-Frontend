@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { setAuthTokenWithExpiry } from "../services/authToken";
@@ -25,7 +24,7 @@ const LoginForm = () => {
         setIsLoading(true);
         if ( userType === 'Patient' ){
             try {
-                const data = await makeRequest("http://localhost:8000/api/patients/login/", 'POST', payload);
+                const data = await makeRequest("/api/patients/login/", 'POST', payload);
                 if ( data.access ) {
                     setAuthTokenWithExpiry("token", data , 1000 * 60 * 60);
                     navigate("/patient");
@@ -40,7 +39,7 @@ const LoginForm = () => {
             }
         } else {
             try {
-                const data = await makeRequest("http://localhost:8000/api/doctors/login/", 'POST', payload);
+                const data = await makeRequest("/api/doctors/login/", 'POST', payload);
                 if ( data.access ) {
                     setAuthTokenWithExpiry("token", data , 1000 * 60 * 60);
                     navigate("/doctor");
@@ -70,7 +69,13 @@ const LoginForm = () => {
 
   return (
     <div className="items-center justify-center h-screen flex">
-        <div className="h-[55%] border p-12 shadow-md bg-gray-100 rounded-md min-w-[400px]">
+      <div className="flex flex-col justify-center items-center">
+      <h1 className="text-black p-6 text-2xl">Welcome! to this appointment management system</h1>
+      <div className="flex">
+        <div className="border h-[418px] w-[500px]">
+          <img src="/doc_img.webp" alt="doc_img" className="h-full"/>
+        </div>
+        <div className="h-[55%] border p-12 shadow-md bg-gray-100 rounded-md w-[400px] ml-auto">
             <h2 className="text-2xl font-bold mb-4 text-blue-500">Login as a {userType}</h2>
             <p className="mb-4 text-gray-400 cursor-pointer" onClick={()=> setUserType(userType === 'Patient' ? 'Doctor' : 'Patient' )}>Or, Login as a {userType === 'Patient' ? 'Doctor' : 'Patient'}</p>
             <form onSubmit={handleLogin} className="space-y-4">
@@ -112,6 +117,8 @@ const LoginForm = () => {
                 </span>
             </p>
         </div>
+      </div>
+      </div>
     </div>
   );
 };
